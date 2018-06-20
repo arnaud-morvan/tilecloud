@@ -5,7 +5,7 @@ from tilecloud import TileLayout
 
 class WMSTileLayout(TileLayout):
 
-    def __init__(self, url, layers, srs, format, tilegrid, border=0, params=None):
+    def __init__(self, url, layers, srs, format, tilegrid, border=0, params=None, filter=None):
         if params is None:
             params = {}
         self.tilegrid = tilegrid
@@ -23,6 +23,8 @@ class WMSTileLayout(TileLayout):
         }
         for key, value in params.items():
             self.params[key] = value
+        if filter is not None:
+            self.params['FILTER'] = filter.format(**params)
 
     def filename(self, tilecoord):
         bbox = self.tilegrid.extent(tilecoord, self.border)
