@@ -37,6 +37,7 @@ class URLTileStore(TileStore):
                     tile.error = response.text
             else:
                 tile.error = response.reason
+                tile.data = response.text
         except requests.exceptions.RequestException as e:
             tile.error = e
         return tile
